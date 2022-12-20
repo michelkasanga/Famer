@@ -9,12 +9,16 @@
         <title>{% block title %} Chikens {% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}         
-           
-        {% endblock %}
+           {% block stylesheets %}
+                {{ encore_entry_link_tags('app') }}
+                <link rel="stylesheet" href="{{asset('front/css/bootstrap.css')}}" />
+            {% endblock %}
 
-       
+            {# {% block  javascripts %}
+                {{ encore_entry_script_tags('app') }}
+            
+                 <script src="{{ asset('front/popper/popper.min.js') }}"></script>
+             {% endblock %} #}
     </head>
     <body>
         {% block navbar %} {% include "partials/_navbar.html.twig" %}  {% endblock %}
@@ -23,10 +27,8 @@
 
         {% block footer %}  {% include "partials/_footer.html.twig" %}  {% endblock %}
         
-         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-           
-            
+        {% block script %}
+             <script src="{{ asset('front/js/bootstrap.bundle.js') }}"></script>
         {% endblock %}
     </body>
 </html>

@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use  Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\ArticleRepository;
+use Symfony\Component\HttpFoundation\File\File;
 use  Vich\UploaderBundle\Mapping\Annotation as Vich;
+use  Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[UniqueEntity('name')]
+#[Vich\Uploadable]
 class Article
 {
     #[ORM\Id]
@@ -45,6 +47,9 @@ class Article
     #[ORM\ManyToOne(inversedBy: 'articles')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userUpdate = null;
+
+    #[Vich\UploadableField(mapping: 'article_image', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
     private ?string $imageName = null;
@@ -151,12 +156,33 @@ class Article
         return $this;
     }
 
+    /**
+     * Set the value of imageFile
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile;
+     */ 
+    public function setImageFile(?File $imageFile = null) :void
+    {
+        $this->imageFile = $imageFile;
+
+        if(null !== $imageFile)
+        {
+            $this->updateAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile() : ?File
+    {
+    return $this->imageFile;
+    }
+
+
     public function getImageName(): ?string
     {
         return $this->imageName;
     }
 
-    public function setImageName(string $imageName): self
+    public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
 
