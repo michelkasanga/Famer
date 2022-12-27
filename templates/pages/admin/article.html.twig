@@ -1,0 +1,127 @@
+ {% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content_title %}The Title of the Page{% endblock %}
+{% block page_actions %}
+    <a class="btn btn-primary" href="...">Some Action</a>
+{% endblock %}
+
+{% block main %}
+
+
+ 
+    <div class="content-wrapper">
+        <article class="content">
+            <section class="content-header">
+                <div class="content-header-title">
+                    <h1 class="title"> Category </h1>
+                </div>
+
+                <div class="page-actions">    
+                    <div class="global-actions">
+                        <a class=" action-new btn btn-primary"  href=" "   data-action-name="new" ><span class="action-label"> Add Category </span></a>
+                    </div>
+                    {# <div class="batch-actions d-none">
+                        <a class=" action-batchDelete btn btn-danger pr-0"  href=""  data-action-name="batchDelete" data-bs-toggle="modal" data-bs-target="&#x23;modal-batch-action"  data-action-batch="true" >
+                            <span class="action-label">Delete</span>
+                        </a>
+                    </div> #}
+                </div>
+            </section>
+                                
+            <section id="main" class="content-body">
+                <table class="table datagrid ">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="form-check">
+                                    <span><input type="checkbox" class="form-check-input form-batch-checkbox-all"></span>
+                                </div>
+                            </th>  
+
+                            <th class="header-for-field-id text-" dir="ltr">
+                                <a href=""> ID <i class="fa fa-fw fa-sort"></i> </a>
+                            </th>
+
+                            <th class="  header-for-field-text text-" dir="ltr">
+                                <a href=""> Name <i class="fa fa-fw fa-sort"></i> </a>
+                            </th>
+
+                            <th class="  header-for-field-datetime text-" dir="ltr">
+                                <a href="">Created At <i class="fa fa-fw fa-sort"></i> </a>
+                            </th>
+                    
+                            <th class="actions-as-dropdown-table-head" dir="ltr">
+                               <span class="sr-only">Actions</span>
+                            </th>
+                        </tr>
+                    </thead>
+        
+                    <tbody>
+                        <tr data-id="1">
+                            <td class="batch-actions-selector">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input form-batch-checkbox" value="1">
+                                </div>
+                            </td>
+                            <td data-label="ID" class=" text- field-id" dir="ltr">
+                                1
+                            </td>
+                            <td data-label="Name" class=" text- field-text" dir="ltr">
+                                <span title="hybride">hybride</span>
+                            </td>
+                            <td data-label="Created&#x20;At" class=" text- field-datetime" dir="ltr">
+                                <time datetime="2022-12-19T19:38:00+00:00" title="Mon, 19 Dec 2022 19:38:00 +0000">Dec 19, 2022, 7:38:00 PM</time>
+                            </td>
+                            <td class="actions actions-as-dropdown">
+                                <div class="dropdown dropdown-actions">
+                                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="21" width="21" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                        </svg>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item action-edit" href="" data-action-name="edit" ><span class="action-label">Edit</span></a>
+                                        <a class="dropdown-item action-show  " href="" data-action-name="show" ><span class="action-label">show</span></a>
+                                        <a class="dropdown-item action-delete text-danger"  href="" data-action-name="delete" ><span class="action-label">Delete</span></a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>  
+                    </tbody>
+                    <tfoot> </tfoot>
+                </table>
+                <div class="content-panel-footer without-padding without-border">
+                    <div class="list-pagination">
+                        <div class="list-pagination-counter">
+                            <strong>1</strong> result
+                        </div>
+
+                        <nav class="pager list-pagination-paginator first-page last-page">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        <i class="fa fa-angle-left mx-1"></i> <span class="btn-label">Previous</span>
+                                    </a>
+                                </li>
+                                <li class="page-item active ">
+                                    <a class="page-link" href="">1</a>
+                                </li>
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">
+                                        <span class="btn-label">Next</span> <i class="fa fa-angle-right mx-1"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                </div>
+    
+            
+            </section>
+
+        </article>
+                        
+                      
+    
+    {% endblock %}

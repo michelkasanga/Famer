@@ -51,7 +51,7 @@ class Article
     #[Vich\UploadableField(mapping: 'article_image', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageName = null;
 
     #[ORM\Column]
@@ -66,6 +66,7 @@ class Article
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+
     }
     public function getId(): ?int
     {

@@ -8,3 +8,23 @@ vich_uploader:
            uri_prefix: /images/article
            upload_destination: '%kernel.project_dir%/public/images/article'
            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+       hero_image:
+           uri_prefix: /images/hero
+           upload_destination: '%kernel.project_dir%/public/images/hero'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+       about_image:
+           uri_prefix: /images/about
+           upload_destination: '%kernel.project_dir%/public/images/about'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+       testimonial_image:
+           uri_prefix: /images/testimonial
+           upload_destination: '%kernel.project_dir%/public/images/testimonial'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
+       personnel_image:
+           uri_prefix: /images/personnel
+           upload_destination: '%kernel.project_dir%/public/images/personnel'
+           namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

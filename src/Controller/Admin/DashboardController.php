@@ -2,8 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\About;
 use App\Entity\Article;
 use App\Entity\Category;
+use App\Entity\Hero;
+use App\Entity\Personnel;
+use App\Entity\Service;
+use App\Entity\Testimonial;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -32,20 +37,27 @@ function index(): Response
     // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
     // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
     //
-    return $this->render('pages/admin/index.html.twig');
+    return $this->render('pages/admin/article.html.twig');
 }
+
+
 
 function configureDashboard(): Dashboard
     {
     return Dashboard::new ()
-        ->setTitle('Poule');
+        ->setTitle('Kab\'s Famer');
 }
 
 function configureMenuItems(): iterable
     {
     yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
     yield MenuItem::linkToCrud('User', 'fas fa-list', User::class);
+    yield MenuItem::linkToCrud('About', 'fas fa-list', About::class);
+    yield MenuItem::linkToCrud('Acceuil', 'fas fa-list', Hero ::class);
     yield MenuItem::linkToCrud('category', 'fas fa-list', Category::class);
     yield MenuItem::linkToCrud('Article', 'fas fa-list', Article::class);
+    yield MenuItem::linkToCrud('Service', 'fas fa-list', Service::class);
+    yield MenuItem::linkToCrud('Temoignage', 'fas fa-list', Testimonial::class);
+    yield MenuItem::linkToCrud('Personnel', 'fas fa-list', Personnel::class);
 }
 }

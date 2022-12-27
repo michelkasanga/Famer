@@ -23,19 +23,20 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ArticleRepository $articleRepository, EntityManagerInterface $manager): Response
+    public function new(Request $request,  EntityManagerInterface $manager): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          $article = $form->getData();
-            $article->setUserCreate($this->getUser());
-            $article->setUserUpdate($this->getUser());
+       $article = $form->getData();
+       $article->setUserCreate($this->getUser());
        
-            $manager->persist($article);
-            $manager->flush();
+       $article->setUserUpdate($this->getUser());
+
+       $manager->persist($article);
+       $manager->flush();
 
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -55,17 +56,14 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Article $article, EntityManagerInterface $manager): Response
+    public function edit(Request $request, Article $article, ArticleRepository $articleRepository): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $article = $form->getData();
-            $article->setUserUpdate($this->getUser());
-            $manager->persist($article);
-            $manager->flush();
-            
+            $articleRepository->save($article, true);
+
             return $this->redirectToRoute('app_article_index', [], Response::HTTP_SEE_OTHER);
         }
 
