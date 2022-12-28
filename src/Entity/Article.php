@@ -40,14 +40,6 @@ class Article
     #[Assert\NotNull()]
     private ?bool $isPublic = null;
 
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $userCreate = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articles')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $userUpdate = null;
-
     #[Vich\UploadableField(mapping: 'article_image', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
@@ -132,31 +124,6 @@ class Article
 
         return $this;
     }
-
-    public function getUserCreate(): ?User
-    {
-        return $this->userCreate;
-    }
-
-    public function setUserCreate(?User $userCreate): self
-    {
-        $this->userCreate = $userCreate;
-
-        return $this;
-    }
-
-    public function getUserUpdate(): ?User
-    {
-        return $this->userUpdate;
-    }
-
-    public function setUserUpdate(?User $userUpdate): self
-    {
-        $this->userUpdate = $userUpdate;
-
-        return $this;
-    }
-
     /**
      * Set the value of imageFile
      *

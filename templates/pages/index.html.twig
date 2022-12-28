@@ -183,9 +183,9 @@
               </div>
 
             <div class="row gy-5">
-              {% for category in categories %}
+              
                 
-                 {% for article in category.articles %}
+                 {% for article in articles_limit %}
                     <div class="col-lg-4 menu-item">
                       <a href=" {{ vich_uploader_asset(article, 'imageFile') }} " class="glightbox"><img src="{{ vich_uploader_asset(article, 'imageFile') }} " class="menu-img img-fluid" alt=""></a>
                       <h4> {{article.name}} </h4>
@@ -193,11 +193,11 @@
                     <span> categorie </span> {{article.category.name}}
                       </p>
                       <p class="price">
-                        ${{article.price}}
+                        {{article.price|format_currency('CDF', {fraction_digit: 0}) }}
                       </p>
                     </div><!-- Menu Item -->
                   {% endfor %}
-                   {% endfor %}
+              
                       {# 
               <div class="col-lg-4 menu-item">
                 <a href="assets/img/menu/menu-item-2.png" class="glightbox"><img src="assets/img/menu/menu-item-2.png" class="menu-img img-fluid" alt=""></a>
@@ -596,7 +596,7 @@
 
         <div class="section-header">
           <h2>Contact</h2>
-          <p>Need Help? <span>Contact Us</span></p>
+          <p> Besoin d'aide <span> Contacter nous </span></p>
         </div>
 
         {# <div class="mb-3">
@@ -687,5 +687,5 @@
 
 
 
-
+ {% include "partials/_footer.html.twig" %}
 {% endblock %}

@@ -39,6 +39,17 @@ class PersonnelRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLimit(?int $limit)
+    {
+        return $this->createQueryBuilder('r')
+                              ->orderBy('r.id', 'DESC')
+                              ->setMaxResults($limit)
+                              ->getQuery()
+                              ->getResult()
+                              ;  
+    }
+    
+
 //    /**
 //     * @return Personnel[] Returns an array of Personnel objects
 //     */

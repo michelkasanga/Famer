@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 
 class ArticleCrudController extends AbstractCrudController
 {
@@ -85,29 +86,16 @@ class ArticleCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('name'),
-            IntegerField::new('price', 'prix'),
+            MoneyField::new('price', 'prix')
+            ->setCurrency('CDF')
+            ->setTextAlign('center')
+            ->setNumDecimals(0)
+            ->setStoredAsCents(false),
             AssociationField::new('category')
                 ->setCrudController(CategoryCrudController::class)
                 // ->autocomplete()
                 // ->renderAsNativeWidget()
                 ,
-          AssociationField::new('userCreate')
-                ->setCrudController(UserCrudController::class)
-                ->onlyOnDetail()
-                ->onlyOnIndex()
-                // ->autocomplete()
-                // ->renderAsNativeWidget()
-                ,
-           
-                AssociationField::new('userUpdate')
-                ->setCrudController(UserCrudController::class)
-                ->onlyOnDetail()
-                ->onlyOnIndex()
-                // ->autocomplete()
-                // ->renderAsNativeWidget()
-                ,
-                
-             
                 BooleanField::new('isPublic')
                 ,
                 ImageField::new('imageName','Image')

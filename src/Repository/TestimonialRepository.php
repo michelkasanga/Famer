@@ -39,6 +39,16 @@ class TestimonialRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLimit(?int $limit)
+    {
+        return $this->createQueryBuilder('r')
+                              ->orderBy('r.id', 'DESC')
+                              ->setMaxResults($limit)
+                              ->getQuery()
+                              ->getResult()
+                              ;  
+    }
+
 //    /**
 //     * @return Testimonial[] Returns an array of Testimonial objects
 //     */

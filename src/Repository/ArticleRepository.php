@@ -39,6 +39,17 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLimit(?int $limit)
+    {
+        return $this->createQueryBuilder('r')
+                              ->where('r.isPublic = 1') 
+                              ->orderBy('r.id', 'DESC')
+                              ->setMaxResults($limit)
+                              ->getQuery()
+                              ->getResult()
+                              ;  
+    }
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

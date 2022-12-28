@@ -39,6 +39,16 @@ class ServiceRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLimit(?int $limit)
+    {
+        return $this->createQueryBuilder('r')
+                              ->orderBy('r.id', 'DESC')
+                              ->setMaxResults($limit)
+                              ->getQuery()
+                              ->getResult()
+                              ;  
+    }
+
 //    /**
 //     * @return Service[] Returns an array of Service objects
 //     */

@@ -37,10 +37,6 @@ class Personnel
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $birthday = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank()]
-    private ?string $detail = null;
-
     #[ORM\Column]
     #[Assert\NotNull()]
     private ?\DateTimeImmutable $createdAt = null;
@@ -111,18 +107,6 @@ class Personnel
     public function setBirthday(?\DateTimeInterface $birthday): self
     {
         $this->birthday = $birthday;
-
-        return $this;
-    }
-
-    public function getDetail(): ?string
-    {
-        return $this->detail;
-    }
-
-    public function setDetail(string $detail): self
-    {
-        $this->detail = $detail;
 
         return $this;
     }

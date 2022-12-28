@@ -38,6 +38,17 @@ class CategoryRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
+    public function findLimit(?int $limit)
+    {
+        return $this->createQueryBuilder('r')
+                              ->orderBy('r.id', 'DESC')
+                              ->setMaxResults($limit)
+                              ->getQuery()
+                              ->getResult()
+                              ;  
+    }
+
 
 //    /**
 //     * @return Category[] Returns an array of Category objects

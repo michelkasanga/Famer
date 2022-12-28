@@ -38,6 +38,15 @@ class AboutRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findLimit(?int $limit)
+    {
+        return $this->createQueryBuilder('r')
+                              ->orderBy('r.id', 'DESC')
+                              ->setMaxResults($limit)
+                              ->getQuery()
+                              ->getResult()
+                              ;  
+    }
 
 //    /**
 //     * @return About[] Returns an array of About objects

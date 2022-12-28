@@ -54,16 +54,14 @@ class HeroRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-   public function findOneHero()
-   {
-       return $this->createQueryBuilder('h')
-              ->orderBy('h.id','DESC') 
-             
-              
-        //    ->andWhere('h.exampleField = :val')
-        //    ->setParameter('val', $value)
-        //    ->getQuery()
-        //    ->getOneOrNullResult()
-       ;
-   }
+public function findLimit(?int $limit)
+{
+    return $this->createQueryBuilder('r')
+                          ->orderBy('r.id', 'DESC')
+                          ->setMaxResults($limit)
+                          ->getQuery()
+                          ->getResult()
+                          ;  
+}
+
 }

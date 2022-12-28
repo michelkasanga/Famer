@@ -49,14 +49,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'userCreate', targetEntity: Article::class)]
-    private Collection $articles;
 
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->roles = ['ROLE_USER'];
-        $this->articles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,35 +162,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Article>
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(Article $article): self
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles->add($article);
-            $article->setUserCreate($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(Article $article): self
-    {
-        if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
-            if ($article->getUserCreate() === $this) {
-                $article->setUserCreate(null);
-            }
-        }
-
-        return $this;
-    }
+ 
 
     /**
      * Get the value of plainPassword

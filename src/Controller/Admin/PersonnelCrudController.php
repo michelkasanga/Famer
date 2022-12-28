@@ -87,7 +87,6 @@ class PersonnelCrudController extends AbstractCrudController
             ImageField::new('imageName','Image')
             ->setBasePath('images/personnel/')
             ->setUploadDir('public/images/personnel/'),
-            TextEditorField::new('detail', 'Detail')
 
         ];
     }
