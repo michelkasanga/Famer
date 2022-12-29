@@ -50,6 +50,16 @@ class ArticleRepository extends ServiceEntityRepository
                               ;  
     }
 
+    public function findCount()
+    {
+        return $this->createQueryBuilder('r')
+                              ->where('r.isPublic = 1') 
+                              ->orderBy('r.id', 'DESC')
+                              ->getQuery()
+                              ->getResult()
+                              ;  
+    }
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */

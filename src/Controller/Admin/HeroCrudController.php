@@ -11,7 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 class HeroCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -79,7 +81,6 @@ class HeroCrudController extends AbstractCrudController
             IdField::new('id')
                 ->hideOnForm(),
             TextField::new('title')
-            ->set
             ,
             ImageField::new('imageName','Image')
             ->setBasePath('images/hero/')

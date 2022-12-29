@@ -17,30 +17,55 @@
           {# <li><a href="#events">Events</a></li> #}
           <li><a href="#chefs">Personnel</a></li>
           <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact">contact</a></li>
+          
 
-          {# <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+            {% if app.user %}
+              <li class="dropdown"><a href="#"><span> {{ app.user.userName }} </span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                 <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
+                  <li><a href="#" > {{app.user.fullName}} </a></li>
+                  <hr>
+                <li><a href=" {{path('app_logout') }} "> Deconnexion </a></li>
                 </ul>
               </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li> #}
-
-          <li><a href="#contact">Contact</a></li>
+                   <li> <a class="btn-book-a-table" href=" {{ path('admin')}} ">Dashboard</a> </li>
+                  
+            {% endif %}
         </ul>
       </nav><!-- .navbar -->
 {# 
       <a class="btn-book-a-table" href="#book-a-table">Book a Table</a> #}
+      
+           <ul class="navbar-nav justify-content-start">
+{% if app.user %}
+        
+            <li class="nav-item dropdown  ">
+              <a class="nav-link dropdown-toggle" style="color:red; padding:0px; margin:0px; font-size:0px;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"  data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+                    <h4 class="icon bi bi-bell-fill" style="color:black; padding:0px; margin:0px; " > </h4> 
+                    <h6 class="  badge-info" 
+                    style="
+                              color:red; 
+                              font-weight:700;
+                              padding-top:-55px;
+                              font-size:12px; 
+                              margin-top:-32px;
+                              margin-left:72%; 
+                              z-index:1; 
+                              font-family:serif;
+                    " > 60</h6>
+              </a>
+                  <ul class="dropdown-menu mr-4 ml-4" >
+                    <li><a class="dropdown-item" href="    ">Edit information</a></li>
+                    <li><a class="dropdown-item" href=" ">Edit password</a></li>
+                    <li>
+                      <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="  ">LogOut</a></li>
+                  </ul>
+            </li>
+
+{% endif %}
+</ul>
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
       <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i>
 

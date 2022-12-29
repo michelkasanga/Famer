@@ -11,7 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+#[IsGranted('ROLE_ADMIN')]
 class UserCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
@@ -22,9 +24,9 @@ class UserCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setEntityLabelInPlural('Articles')
-            ->setEntityLabelInSingular('Article')
-            ->setPaginatorPageSize(5)
+            ->setEntityLabelInPlural('Utilisateurs')
+            ->setEntityLabelInSingular('Utilisateur')
+            ->setPaginatorPageSize(20)
             ->setPageTitle(Crud::PAGE_DETAIL, fn (User $header) => sprintf(' <b>%s</b>', $header->getFullName()))
             ->setPageTitle(Crud::PAGE_EDIT, fn (User $header) => sprintf(' Edit <b>%s</b>', $header->getFullName()))
         ;

@@ -55,7 +55,10 @@
             <div class="col-lg-5 d-flex align-items-end" data-aos="fade-up" data-aos-delay="300">
               <div class="content ps-0 ps-lg-5">
                 <p class="fst-italic">
-                      {{  about.detail|length  <= 800 ? about.detail|raw :  about.detail|slice(0, 800)|raw }} {{  about.detail|length  <= 800 ? '' :  '...'}} 
+                      {{  about.detail|length  <= 800 ? about.detail|raw :  about.detail|slice(0, 800)|raw }}
+                      {% if  about.detail|length  > 800 %}
+                        <a  href=" " class="  link-danger" style="font-weight:700;">...Voir plus</a>
+                      {% endif %}
                 </p>
 
                 {# <div class="position-relative mt-4">
@@ -153,115 +156,33 @@
     <!-- ======= Menu Section ======= -->
     <section id="menu" class="menu">
       <div class="container" data-aos="fade-up">
-
         <div class="section-header">
-          <h2>Nos articles</h2>
-          <span>Choisissez  votre <span> Article</span> et  passée la commande</span>
+          <h2>Nos Produits</h2>
+          <span>Choisissez  votre <span> Produit</span> et  passée la commande</span>
         </div>
-        {# 
-        <ul class="nav nav-tabs d-flex justify-content-center" data-aos="fade-up" data-aos-delay="200">
-
-            {% for category in categories %}
-          
-              <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#{{ category.name}} ">
-                  <h4>{{ category.name}}</h4>
-                </a><!-- End tab nav item -->
-      
-            {% endfor %}
-      
-        </ul> #}
-
         <div class="tab-content" data-aos="fade-up" data-aos-delay="300">
-
-
-
             <div class="tab-pane fade active show" id="">
               <div class="tab-header text-center">
                 {# <p>Menu</p>
                 <h3> </h3> #}
               </div>
-
-            <div class="row gy-5">
-              
-                
-                 {% for article in articles_limit %}
+               <div class="row gy-5">    
+                 {% for article in articles %}
                     <div class="col-lg-4 menu-item">
                       <a href=" {{ vich_uploader_asset(article, 'imageFile') }} " class="glightbox"><img src="{{ vich_uploader_asset(article, 'imageFile') }} " class="menu-img img-fluid" alt=""></a>
                       <h4> {{article.name}} </h4>
                       <p class="ingredients">
-                    <span> categorie </span> {{article.category.name}}
+                     <span> categorie </span> {{article.category.name}}
                       </p>
                       <p class="price">
                         {{article.price|format_currency('CDF', {fraction_digit: 0}) }}
                       </p>
                     </div><!-- Menu Item -->
                   {% endfor %}
-              
-                      {# 
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-2.png" class="glightbox"><img src="assets/img/menu/menu-item-2.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Aut Luia</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $14.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-3.png" class="glightbox"><img src="assets/img/menu/menu-item-3.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Est Eligendi</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $8.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-4.png" class="glightbox"><img src="assets/img/menu/menu-item-4.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-5.png" class="glightbox"><img src="assets/img/menu/menu-item-5.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Eos Luibusdam</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $12.95
-                </p>
-              </div><!-- Menu Item -->
-
-              <div class="col-lg-4 menu-item">
-                <a href="assets/img/menu/menu-item-6.png" class="glightbox"><img src="assets/img/menu/menu-item-6.png" class="menu-img img-fluid" alt=""></a>
-                <h4>Laboriosam Direva</h4>
-                <p class="ingredients">
-                  Lorem, deren, trataro, filede, nerada
-                </p>
-                <p class="price">
-                  $9.95
-                </p>
-              </div><!-- Menu Item --> #}
-
-            </div>
+                 {{ knp_pagination_render(articles)  }}
+               </div>
           </div><!-- End Starter Menu Content -->
-
-         
-
-
         </div>
-
       </div>
     </section><!-- End Menu Section -->
 
@@ -450,52 +371,15 @@
                 <div class="member-info">
                   <h4> {{ personnel.fullName }} </h4>
                   <span> {{ personnel.post}} </span>
-                       <span> {{ date - personnel.birthday|date('Y')}} ans</span>
-                  <p> {{ personnel.detail|raw}}</p>
+                       <p> {{ date - personnel.birthday|date('Y')}} ans</p>
                 </div>
               </div>
             </div><!-- End Chefs Member -->
           {% endfor %}
+          {% if personnels_count > 3 %}
+              <div class="text-center"><a  href="" class=" btn btn-danger" style="border-radius:50px; background:red; font-weight:700;">Voir plus</a></div>
+          {% endif %}
 
-          {# <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Sarah Jhonson</h4>
-                <span>Patissier</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
-              </div>
-            </div>
-          </div><!-- End Chefs Member -->
-
-          <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="chef-member">
-              <div class="member-img">
-                <img src="assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>William Anderson</h4>
-                <span>Cook</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div><!-- End Chefs Member --> #}
-
-        </div>
 
       </div>
     </section><!-- End Chefs Section -->
@@ -656,28 +540,8 @@
 
         </div>
 
-        <form action="forms/contact.php" method="post" role="form" class="php-email-form p-3 p-md-4">
-          <div class="row">
-            <div class="col-xl-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-            </div>
-            <div class="col-xl-6 form-group">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-          </div>
-          <div class="form-group">
-            <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-          </div>
-          <div class="my-3">
-            <div class="loading">Loading</div>
-            <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
-          </div>
-          <div class="text-center"><button type="submit">Send Message</button></div>
-        </form>
+       
+        {{ include('contact/_form.html.twig') }}
         <!--End Contact Form -->
 
       </div>
