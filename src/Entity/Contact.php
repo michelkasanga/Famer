@@ -24,7 +24,7 @@ class Contact
     private ?string $fullName = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\NotBlank()]
+    #[Assert\NotNull]
     #[Assert\Length(min: 3, max: 180)]
     private ?string $email = null;
 
@@ -32,13 +32,12 @@ class Contact
     private ?string $subject = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank()]
     private ?string $message = null;
 
     #[ORM\Column]
     private ?int $read = null;
 
-    #[Vich\UploadableField(mapping: 'contact_image', fileNameProperty: 'imageName')]
+    #[Vich\UploadableField(mapping: 'article_image', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]

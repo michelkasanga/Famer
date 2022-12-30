@@ -3,14 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[IsGranted('ROLE_ADMIN')]
@@ -27,8 +27,8 @@ class UserCrudController extends AbstractCrudController
             ->setEntityLabelInPlural('Utilisateurs')
             ->setEntityLabelInSingular('Utilisateur')
             ->setPaginatorPageSize(20)
-            ->setPageTitle(Crud::PAGE_DETAIL, fn (User $header) => sprintf(' <b>%s</b>', $header->getFullName()))
-            ->setPageTitle(Crud::PAGE_EDIT, fn (User $header) => sprintf(' Edit <b>%s</b>', $header->getFullName()))
+            ->setPageTitle(Crud::PAGE_DETAIL, fn(User $header) => sprintf(' <b>%s</b>', $header->getFullName()))
+            ->setPageTitle(Crud::PAGE_EDIT, fn(User $header) => sprintf(' Edit <b>%s</b>', $header->getFullName()))
         ;
     }
 
@@ -46,7 +46,7 @@ class UserCrudController extends AbstractCrudController
             ->update(Crud::PAGE_DETAIL, Action::INDEX, function (Action $action) {
                 return $action->setIcon('fa fa-right-from-bracket')->setLabel(false);
             })
-            ->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
+            ->update(Crud::PAGE_INDEX, Action::NEW , function (Action $action) {
                 return $action->setIcon('fa fa-plus')->setLabel(false);
             })
             ->update(Crud::PAGE_INDEX, Action::EDIT, function (Action $action) {
@@ -78,17 +78,19 @@ class UserCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id')
+            IdField::new ('id')
                 ->hideOnForm(),
-            TextField::new('fullName', 'Nom complet'),
-            TextField::new('userName')
-               ->setDisabled()
+            TextField::new ('fullName', 'Nom complet'),
+            TextField::new ('userName')
+              ->hideWhenUpdating()
 
-                
-                ,
-              EmailField::new('email', 'Email')
-               ->setDisabled(),
-               ArrayField::new('roles', 'Role')
+            ,
+            EmailField::new ('email', 'Email')
+                ->hideWhenUpdating(),
+            ArrayField::new ('roles', 'Role'),
+            TextField::new('plainPassword')
+            ->onlyWhenCreating(),
+            
 
         ];
     }

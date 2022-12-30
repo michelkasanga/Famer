@@ -28,16 +28,18 @@
                 <li><a href=" {{path('app_logout') }} "> Deconnexion </a></li>
                 </ul>
               </li>
+               {% endif %}
+               {% if app.user  and app.user.roles == ['ROLE_USER','ROLE_ADMIN'] %}
                    <li> <a class="btn-book-a-table" href=" {{ path('admin')}} ">Dashboard</a> </li>
-                  
-            {% endif %}
+                {% endif %}
+           
         </ul>
       </nav><!-- .navbar -->
 {# 
       <a class="btn-book-a-table" href="#book-a-table">Book a Table</a> #}
       
            <ul class="navbar-nav justify-content-start">
-{% if app.user %}
+ {% if app.user  and app.user.roles == ['ROLE_USER','ROLE_ADMIN'] %}
         
             <li class="nav-item dropdown  ">
               <a class="nav-link dropdown-toggle" style="color:red; padding:0px; margin:0px; font-size:0px;" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true"  data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
@@ -52,15 +54,25 @@
                               margin-left:72%; 
                               z-index:1; 
                               font-family:serif;
-                    " > 60</h6>
+                    " >{{ contacts|length == 0 ? ' ' : contacts|length }} </h6>
               </a>
-                  <ul class="dropdown-menu mr-4 ml-4" >
-                    <li><a class="dropdown-item" href="    ">Edit information</a></li>
-                    <li><a class="dropdown-item" href=" ">Edit password</a></li>
+                  <ul class="dropdown-menu mr-4 ml-4 mt-4" >
+                  {% for contact in contacts %}
+                    {% if contact.read == 1 %}
+                       <li><a class="dropdown-item" href="{{path('app_read',{'id': contact.id})}} ">{{contact.subject}} </a></li>
+                    {% endif %}
+                      
+                  {% endfor %}
+                 
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="  ">LogOut</a></li>
+                     {% for contact in contacts %}
+                    {% if contact.read == 0 %}
+                       <li><a class="dropdown-item" href=" {{path('app_read_message',{'id': contact.id})}} ">{{contact.subject}} </a></li>
+                    {% endif %}
+                      
+                  {% endfor %}
                   </ul>
             </li>
 
