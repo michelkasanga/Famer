@@ -37,6 +37,8 @@ class Contact
     #[ORM\Column]
     private ?int $read = null;
 
+    private ?int $quantity = null;
+
     #[Vich\UploadableField(mapping: 'article_image', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
@@ -148,6 +150,26 @@ class Contact
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {+
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of quantity
+     */ 
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * Set the value of quantity
+     *
+     * @return  self
+     */ 
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }

@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use  Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class CommandType extends AbstractType
 {
@@ -23,6 +24,7 @@ class CommandType extends AbstractType
                     ,
                     'placeholder' => 'Nom Complet'
                 ],
+                'required' => true
               
             ])
             ->add('email', EmailType::class,  [
@@ -32,6 +34,7 @@ class CommandType extends AbstractType
                     'maxlength'=> '180',
                     'placeholder' => 'Email'
                 ],
+                'required' => true,
                 'constraints'=> [
                     new Assert\NotBlank(),
                     new Assert\Email(),
@@ -39,6 +42,19 @@ class CommandType extends AbstractType
                 ]
             ])
             
+            ->add('quantity', IntegerType::class,  [
+                'attr'=>[
+                    'class'=> 'form-control',
+                    
+                    'placeholder' => 'Quantitee'
+                ],
+                'required' => true,
+                'constraints'=> [
+                    new Assert\NotBlank(),
+                 new Assert\Positive(null, 'la quantité doit etre superieur à 0')
+                ]
+            
+            ])
          
         ;
     }

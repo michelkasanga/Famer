@@ -168,7 +168,7 @@
               </div>
                <div class="row gy-5">    
                  {% for article in articles %}
-                    <div class="col-lg-4 menu-item" style="border:1px solid black;">
+                    <div class="col-lg-4 menu-item">
                       <a href=" {{ vich_uploader_asset(article, 'imageFile') }} " class="glightbox"><img src="{{ vich_uploader_asset(article, 'imageFile') }} " class="menu-img img-fluid" alt=""></a>
                       <h4> <a href="{{path('app_article_show',{'id': article.id} ) }} ">{{article.name}} </a></h4>
                       <p class="ingredients" > {{article.category.name}}

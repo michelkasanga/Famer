@@ -38,11 +38,11 @@ function index(
     PaginatorInterface $paginator,
     ContactRepository $contactRepository
 ): Response {
-
+  
     $produit = $paginator->paginate(
         $article->findAll(),
         $request->query->getInt('page', 1), /*page number*/
-        2/*limit per page*/
+        6/*limit per page*/
     );
 
     $contact = new Contact();
@@ -72,23 +72,27 @@ function index(
             'personnels_count' => count($personnel->findAll()),
             'date' => date('Y'),
             'form' => $form->createView(),
-            'contacts' => $contactRepository->findUnRead()
+            'contacts' => $contactRepository->findUnRead(),
+            
         ]);
 }
 
 #[Route('/article/show/{id}', name:'app_article_show', methods:['GET', 'POST'])]
-function show(Article $article, EntityManagerInterface $manager, Request $request): Response
+function show(Article $article, EntityManagerInterface $manager, ContactRepository $contactRepository, Request $request): Response
     {
+      
     $contact = new Contact();
     $form = $this->createForm(CommandType::class, $contact);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         $contact = $form->getData();
+        $TotalPrice = $contact->getQuantity() * $article->getPrice();
         $contact->setRead(1)
-            ->setSubject('command ' . $article->getName())
-            ->setMessage('prix: ' . $article->getprice())
+            ->setSubject('commande de ' .$TotalPrice. ' FC<br> Produit : ' . $article->getName())
+            ->setMessage('prix Unitaire :  ' . $article->getprice().' <br> Quantitée :  '. $contact->getQuantity())
             ->setImageName($article->getImageName());
+
         $manager->persist($contact);
         $manager->flush();
 
@@ -97,6 +101,8 @@ function show(Article $article, EntityManagerInterface $manager, Request $reques
     return $this->render('article/show.html.twig', [
         'article' => $article,
         'form' => $form->createView(),
+        'contacts' => $contactRepository->findUnRead(),
+      
     ]);
 }
 

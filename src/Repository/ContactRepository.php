@@ -58,6 +58,7 @@ class ContactRepository extends ServiceEntityRepository
    {
        return $this->createQueryBuilder('c')
            ->where('c.read = 1 or c.read = 0')
+           ->orderBy('c.id', 'DESC')
           
            ->getQuery()
            ->getResult()
