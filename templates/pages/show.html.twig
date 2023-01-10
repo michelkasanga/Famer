@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block navbar %}
+  
+{% endblock %}
+
+{% block body %}
+
+   <!-- ======= Chefs Section ======= -->
+   <section id="chefs" class="chefs section-bg">
+    <div class="container" data-aos="fade-up">
+
+      <div class="section-header">
+        <h2></h2>
+        <p><span>{{article.name}} </span></p>
+            <img src="{{vich_uploader_asset(article, 'imageFile')}}" class="img-fluid" alt="">
+              <div class="chef-member container">
+              <div class="mt-4 mb-4">
+                  <div class="row">
+                      <div class="col-lg-4 col-sm-4"> 
+                       <span><b> Prix :  </b> {{article.price|format_currency('CDF', {fraction_digit: 0})}} </span>
+                      </div>
+                       <div class="col-lg-4 col-sm-4"> 
+                        <i><b> Mis a jour :  </b> {{article.updatedAt|date('Y M d')}} </i>
+                      </div>
+                      <hr>
+                  </div>
+                  <div class="align-item-end" style="text-align:left;">
+                  {{article.detail|raw}}
+                  </div>
+              </div> 
+              <div style="border:1px solid  rgb(230, 230, 200); border-radius:30px;" class="mb-4"> 
+              <b> <h3>Finaliser votre commande </h3></b>
+                  {{ include('article/_form.html.twig') }}
+              </div>   
+              </div>
+           
+      </div>
+    </div>
+  </section><!-- End Chefs Section -->
+
+
+{% endblock %}
+
+  

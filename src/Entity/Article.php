@@ -135,7 +135,7 @@ class Article
 
         if(null !== $imageFile)
         {
-            $this->updateAt = new \DateTimeImmutable();
+            $this->updatedAt = new \DateTimeImmutable();
         }
     }
 
@@ -180,8 +180,5 @@ class Article
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->imageFile;
-    }
+  
 }

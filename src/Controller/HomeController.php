@@ -38,7 +38,7 @@ function index(
     PaginatorInterface $paginator,
     ContactRepository $contactRepository
 ): Response {
-  
+
     $produit = $paginator->paginate(
         $article->findAll(),
         $request->query->getInt('page', 1), /*page number*/
@@ -73,14 +73,14 @@ function index(
             'date' => date('Y'),
             'form' => $form->createView(),
             'contacts' => $contactRepository->findUnRead(),
-            
+
         ]);
 }
 
 #[Route('/article/show/{id}', name:'app_article_show', methods:['GET', 'POST'])]
 function show(Article $article, EntityManagerInterface $manager, ContactRepository $contactRepository, Request $request): Response
     {
-      
+
     $contact = new Contact();
     $form = $this->createForm(CommandType::class, $contact);
     $form->handleRequest($request);
@@ -89,8 +89,8 @@ function show(Article $article, EntityManagerInterface $manager, ContactReposito
         $contact = $form->getData();
         $TotalPrice = $contact->getQuantity() * $article->getPrice();
         $contact->setRead(1)
-            ->setSubject('commande de ' .$TotalPrice. ' FC<br> Produit : ' . $article->getName())
-            ->setMessage('prix Unitaire :  ' . $article->getprice().' <br> Quantitée :  '. $contact->getQuantity())
+            ->setSubject('commande de ' . $TotalPrice . ' FC<br> Produit : ' . $article->getName())
+            ->setMessage('prix Unitaire :  ' . $article->getprice() . ' <br> Quantitée :  ' . $contact->getQuantity())
             ->setImageName($article->getImageName());
 
         $manager->persist($contact);
@@ -98,31 +98,30 @@ function show(Article $article, EntityManagerInterface $manager, ContactReposito
 
         return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
-    return $this->render('article/show.html.twig', [
+    return $this->render('pages/show.html.twig', [
         'article' => $article,
         'form' => $form->createView(),
         'contacts' => $contactRepository->findUnRead(),
-      
+
     ]);
 }
 
-
 #[Route('/read/{id}', name:'app_read', methods:['GET', 'POST'])]
-public  function read(Contact $contact, EntityManagerInterface $manager, Request $request): Response
+function read(Contact $contact, EntityManagerInterface $manager, Request $request): Response
     {
-        $contact->setRead(2);
-        $manager->persist($contact);
-        $manager->flush();
+    $contact->setRead(2);
+    $manager->persist($contact);
+    $manager->flush();
     return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
 }
-
 
 #[Route('/read/message/{id}', name:'app_read_message', methods:['GET', 'POST'])]
-public  function readMessage(Contact $contact, EntityManagerInterface $manager, Request $request): Response
+function readMessage(Contact $contact, EntityManagerInterface $manager, Request $request): Response
     {
-        $contact->setRead(3);
-        $manager->persist($contact);
-        $manager->flush();
+    $contact->setRead(3);
+    $manager->persist($contact);
+    $manager->flush();
     return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
 }
+
 }

@@ -1,5 +1,18 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-   
-    <button class="btn btn-primary">{{ button_label|default('Commander') }}</button>
+ <div class="php-email-form p-3 p-md-4">
+        <div class="row">
+            <div class="col-xl-6 form-group mt-3 ">
+                {{ form_widget(form.fullName) }} 
+            </div>   
+            <div class="col-xl-6 form-group mt-3">
+                {{ form_widget(form.email) }}
+            </div>
+        </div>
+          <div class="form-group mt-3">
+              {{ form_widget(form.quantity) }}
+          </div>
+          <div class="text-center"><button type="submit" class="btn btn-primary mt-3">{{ button_label|default('Commander') }}</button></div>
+        </div>
+
+      
 {{ form_end(form) }}
